@@ -1,0 +1,129 @@
+﻿
+@model practical_07.Models.Feedback
+
+@{
+    ViewBag.Title = "Submit Feedback";
+}
+
+<style>
+    .feedback-card {
+        max-width: 700px;
+        margin: auto;
+        padding: 30px;
+        background: white;
+        border-radius: 14px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    }
+
+        .feedback-card h2 {
+            color: #4f46e5;
+            margin-top: 0;
+        }
+
+    .form-group {
+        margin-bottom: 18px;
+    }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+    .form-control {
+        width: 100%;
+        padding: 11px;
+        border: 1px solid #d1d5db;
+        border-radius: 7px;
+        font-size: 15px;
+    }
+
+    textarea.form-control {
+        min-height: 110px;
+        resize: vertical;
+    }
+
+    .submit-btn {
+        background: #4f46e5;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 7px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+        .submit-btn:hover {
+            background: #3730a3;
+        }
+
+    .field-validation-error,
+    .validation-summary-errors {
+        color: #dc2626;
+        font-size: 14px;
+    }
+
+    .input-validation-error {
+        border-color: #dc2626;
+    }
+</style>
+
+<div class="feedback-card">
+    <h2>📝 Student Feedback Form</h2>
+    <p>Share your experience with us.</p>
+
+    @Html.Partial("_FeedbackMessage")
+
+    @using (Html.BeginForm("Create", "Feedback", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.ValidationSummary(false, "", new { @class = "validation-summary-errors" })
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.StudentName)
+            @Html.TextBoxFor(m => m.StudentName,
+                new { @class = "form-control", placeholder = "Enter your name" })
+            @Html.ValidationMessageFor(m => m.StudentName)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Email)
+            @Html.TextBoxFor(m => m.Email,
+                new { @class = "form-control", placeholder = "Enter your email", type = "email" })
+            @Html.ValidationMessageFor(m => m.Email)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Subject)
+            @Html.TextBoxFor(m => m.Subject,
+                new { @class = "form-control", placeholder = "Feedback subject" })
+            @Html.ValidationMessageFor(m => m.Subject)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Rating)
+            @Html.DropDownListFor(m => m.Rating,
+                new SelectList(new[]
+                {
+                    new { Value = 0, Text = "-- Select Rating --" },
+                    new { Value = 1, Text = "1 - Poor" },
+                    new { Value = 2, Text = "2 - Fair" },
+                    new { Value = 3, Text = "3 - Good" },
+                    new { Value = 4, Text = "4 - Very Good" },
+                    new { Value = 5, Text = "5 - Excellent" }
+                }, "Value", "Text"),
+                new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Rating)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Comments)
+            @Html.TextAreaFor(m => m.Comments,
+                new { @class = "form-control", placeholder = "Write your feedback here..." })
+            @Html.ValidationMessageFor(m => m.Comments)
+        </div>
+
+        <button type="submit" class="submit-btn">Submit Feedback</button>
+    }
+</div>

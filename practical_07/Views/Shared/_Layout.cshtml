@@ -1,0 +1,84 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewBag.Title - Feedback Management</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f4f6;
+            color: #1f2937;
+        }
+
+        header {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            padding: 25px 8%;
+        }
+
+            header h1 {
+                margin: 0;
+                font-size: 28px;
+            }
+
+        nav {
+            background: white;
+            padding: 15px 8%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+            nav a {
+                color: #4f46e5;
+                text-decoration: none;
+                font-weight: bold;
+                margin-right: 25px;
+            }
+
+                nav a:hover {
+                    color: #7c3aed;
+                }
+
+        main {
+            max-width: 1000px;
+            margin: 35px auto;
+            padding: 0 20px;
+            min-height: 350px;
+        }
+
+        footer {
+            background: #1f2937;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Feedback Management System</h1>
+        <p>We value your feedback!</p>
+    </header>
+
+    <nav>
+        <a href="@Url.Action("Create", "Feedback")">Submit Feedback</a>
+        <a href="@Url.Action("Index", "Home")">Home</a>
+    </nav>
+
+    <main>
+        @RenderBody()
+    </main>
+
+    <footer>
+        <p>&copy; @DateTime.Now.Year Feedback Management System</p>
+    </footer>
+</body>
+</html>
